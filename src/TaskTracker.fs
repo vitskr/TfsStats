@@ -55,8 +55,22 @@ module TaskTracker =
             | None -> ()
             | Some info ->
                 let adjustedInfo =                    
-                    if u.HasRaised then { info with Planned = info.Planned - u.OldValue.Value + u.NewValue.Value }                    
-                    else { info with Worked = info.Worked + (u.OldValue.Value - u.NewValue.Value) }                    
+                    if u.HasRaised then
+                        let adjustBy = 
+                            match (u.OldValue, u.NewValue) with
+                            | (Some old, Some ``new``) -> old + ``new``
+                            | (Some old, None) -> old
+                            | (None, Some ``new``) -> ``new``
+                            | _ -> 0.0
+                        { info with Planned = info.Planned - adjustBy }
+                    else
+                        let adjustBy = 
+                            match (u.OldValue, u.NewValue) with
+                            | (Some old, Some ``new``) -> old - ``new``
+                            | (Some old, None) -> old
+                            | (None, Some ``new``) -> -``new``
+                            | _ -> 0.0
+                        { info with Worked = info.Worked + adjustBy }                    
                 current.Assignees.[current.CurrentAssignee] <- adjustedInfo
             
             current

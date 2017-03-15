@@ -3,8 +3,8 @@ module Tests
 open fsharpVSO
 
 open Xunit
-open System
 open Swensen.Unquote
+open System
 
 type ``Given WorkUpdate that has old work null`` () =
     let Null = Nullable<double>()
