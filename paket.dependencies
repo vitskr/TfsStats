@@ -1,0 +1,13 @@
+source https://api.nuget.org/v3/index.json
+
+framework: net452
+
+nuget FAKE
+nuget Unquote
+nuget xunit
+nuget xunit.abstractions
+nuget xunit.assert
+nuget xunit.core
+nuget xunit.extensibility.core
+nuget xunit.extensibility.execution
+nuget xunit.runner.visualstudio
