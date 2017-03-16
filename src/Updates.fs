@@ -3,10 +3,11 @@ namespace fsharpVSO
 open Common
 open System
 
-type UpdateType = 
+
+type UpdateTypes = 
     | FromNull
     | ToNull
-    | Change
+    | Changed
 
 [<AbstractClass>]
 type UpdateBase<'a>(oldValue: 'a option, newValue: 'a option) = 
@@ -14,10 +15,10 @@ type UpdateBase<'a>(oldValue: 'a option, newValue: 'a option) =
     member this.NewValue = newValue
 
     member this.UpdateType = 
-        match this.OldValue with 
-        | Some _ when this.NewValue.IsNone -> ToNull
-        | None when this.NewValue.IsSome -> FromNull
-        | _ -> Change
+        match (this.OldValue, this.NewValue) with 
+        | (Some _, None _) -> ToNull
+        | (None _, Some _) -> FromNull
+        | _ -> Changed
 
     override this.ToString() = 
         sprintf "Change from %A to %A" this.OldValue this.NewValue
