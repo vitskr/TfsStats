@@ -1,3 +1,21 @@
-Unquote
-xunit
-xunit.runner.visualstudio
+FSharp.Core
+Argu
+
+group VSOClient
+	Microsoft.TeamFoundationServer.Client
+		exclude Microsoft.TeamFoundation.Dashboards.WebApi.dll
+		exclude Microsoft.TeamFoundation.DistributedTask.Common.Contracts.dll
+		exclude Microsoft.TeamFoundation.Chat.WebApi.dll
+		exclude Microsoft.TeamFoundation.Build2.WebApi.dll		
+		exclude Microsoft.TeamFoundation.Policy.WebApi.dll
+		exclude Microsoft.TeamFoundation.SourceControl.WebApi.dll
+		exclude Microsoft.TeamFoundation.Test.WebApi.dll
+		exclude Microsoft.TeamFoundation.TestManagement.WebApi.dll
+
+	Microsoft.VisualStudio.Services.Client
+	Microsoft.VisualStudio.Services.InteractiveClient
+
+group Test
+	Unquote
+	xunit
+	xunit.runner.visualstudio

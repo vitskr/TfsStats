@@ -1,71 +1,61 @@
-module Tests
-
-open fsharpVSO
+module TfsStats.Tests
 
 open Xunit
 open Swensen.Unquote
 open System
+open TfsStats.TaskTracker
+open TfsStats.Updates
 
-let workUpdate (oldValue, newValue) = 
-    Work(WorkUpdate(oldValue, newValue))
-
-let assigneeUpdate (oldValue, newValue) = 
-    Assignee(AssigneeUpdate(oldValue, newValue))
-
-let iterationUpdate (oldValue, newValue) =
-    Iteration(IterationUpdate(oldValue, newValue))
 
 type ``Given WorkUpdate that has old work null`` () =
-    let Null = Nullable<double>()
 
     [<Fact>]
     let ``when new work is 12.0 HasRaised should be true`` () =
-        let work = WorkUpdate(Null, Nullable(12.0))
+        let work = WorkUpdate(None, Some 12.0)
         test <@ work.HasRaised = true @>
 
     [<Fact>]
     let ``when new work is 12.0 HasLowered should be false`` () =
-        let work = WorkUpdate(Null, Nullable(12.0))
+        let work = WorkUpdate(None, Some 12.0)
         test <@ work.HasLowered  = false @>
 
     [<Fact>]
     let ``when new work is null HasRaised should be false`` () =
-        let work = WorkUpdate(Null, Null)        
+        let work = WorkUpdate(None, None)        
         test <@ work.HasRaised  = false @>
 
     [<Fact>]
     let ``when new work is null HasLowered should be false`` () =
-        let work = WorkUpdate(Null, Null)
+        let work = WorkUpdate(None, None)
         test <@ work.HasLowered  = false @>
 
 type ``Given WorkUpdate that has new work null`` () =
-    let Null = Nullable<double>()
 
     [<Fact>]
     let ``when old work is 12.0 HasRaised should be false`` () =
-        let work = WorkUpdate(Nullable(12.0), Null)
+        let work = WorkUpdate(Some 12.0, None)
         test <@ work.HasRaised  = false @>
 
     [<Fact>]
     let ``when old work is 12.0 HasLowered should be true`` () =
-        let work = WorkUpdate(Nullable(12.0), Null)
+        let work = WorkUpdate(Some 12.0, None)
         test <@ work.HasLowered  = true @>
 
     [<Fact>]
     let ``when old work is null HasRaised should be false`` () =
-        let work = WorkUpdate(Null, Null)
+        let work = WorkUpdate(None, None)
         test <@ work.HasRaised  = false @>
 
     [<Fact>]
     let ``when old work is null HasLowered should be false`` () =
-        let work = WorkUpdate(Null, Null)                
+        let work = WorkUpdate(None, None)                
         test <@ work.HasLowered  = false @>
 
 type ``Given assignee 'worker1' and work changed from 0 to 6`` () =
     let updates = seq { 
-        yield iterationUpdate(null, "iteration1")
-        yield assigneeUpdate(null, "worker1")
-        yield workUpdate(Nullable<double>(), Nullable<double>(6.0)) }
+        yield iterationUpdate(None, Some "iteration1")
+        yield assigneeUpdate(None, Some "worker1")
+        yield workUpdate(None, Some 6.0) }
 
     [<Fact>]
     let ``Tracker should return worker1: { p:6, w:0 }`` () =
@@ -80,13 +70,13 @@ type ``Given assignee 'worker1' and work changed from 0 to 6`` () =
         test<@ info.CurrentWork = 6.0 @>
 
     let ``And work changes from 6 to 8 current work should be 8.0`` () =
-        let updates = Seq.append updates <| seq { yield workUpdate(Nullable<double>(6.0), Nullable<double>(8.0)) }
+        let updates = Seq.append updates <| seq { yield workUpdate(Some 6.0, Some 8.0) }
         let info = TaskTracker.track updates
         test <@ info.CurrentWork = 8.0 @>
 
     [<Fact>]
     let ``and then work changes from 6 to 4 tracker should return worker1: {p: 6, w: 2}`` () =
-        let updates = Seq.append updates <| seq { yield workUpdate(Nullable<double>(6.0), Nullable<double>(4.0)) }
+        let updates = Seq.append updates <| seq { yield workUpdate(Some 6.0, Some 4.0) }
         let info = TaskTracker.track updates
         let stats = info.GetWork(assignee = "worker1").Value
         test <@ stats.Planned = 6.0 @>
@@ -94,7 +84,7 @@ type ``Given assignee 'worker1' and work changed from 0 to 6`` () =
 
     [<Fact>]
     let ``and then assignee changed to 'worker2' Tracker should return worker1: {p:0, w:0}, worke2: { p:6, w:0 }`` () =
-        let newUpdates = seq { yield assigneeUpdate("worker1", "worker2") } |> Seq.append updates
+        let newUpdates = seq { yield assigneeUpdate(Some "worker1", Some "worker2") } |> Seq.append updates
         let info = TaskTracker.track newUpdates
         let statsWorker1 = info.GetWork(assignee = "worker1").Value
         test <@ (statsWorker1.Planned, statsWorker1.Worked) = (0.0, 0.0) @>
@@ -106,8 +96,8 @@ type ``Given assignee 'worker1' and work changed from 0 to 6`` () =
     let ``and then work changes from 6 to 4 and then assignee changes to worker2. worker1: {p:2; w:2}. worker2: {p:4;w:0}`` () =
         let updates = 
             Seq.append updates 
-                <| seq {  yield workUpdate(Nullable<double>(6.0), Nullable<double>(4.0))
-                          yield assigneeUpdate("worker1", "worker2") }
+                <| seq {  yield workUpdate(Some 6.0, Some 4.0)
+                          yield assigneeUpdate(Some "worker1", Some "worker2") }
 
         let info = TaskTracker.track updates
 
@@ -124,9 +114,9 @@ type ``Given assignee 'worker1' and work changed from 0 to 6`` () =
     let ``and then w 6 => 4 and then a worker1 => worker2  and then w 4 => 0. w2: { p:4.0 w:4.0 }`` () = 
         let updates = 
             Seq.append updates 
-                <| seq {  yield workUpdate(Nullable<double>(6.0), Nullable<double>(4.0))
-                          yield assigneeUpdate("worker1", "worker2") 
-                          yield workUpdate(Nullable<double>(4.0), Nullable<double>(0.0))}
+                <| seq {  yield workUpdate(Some 6.0, Some 4.0)
+                          yield assigneeUpdate(Some "worker1", Some "worker2") 
+                          yield workUpdate(Some 4.0, Some 0.0)}
 
         let info = TaskTracker.track updates
 
@@ -142,8 +132,8 @@ type ``Given assignee 'worker1' and work changed from 0 to 6`` () =
 type ``Given no iteration, w 0 => 6, assignee changes null => 'w1'  '`` () = 
     let updates = 
         seq {
-            yield workUpdate(Nullable<double>(), Nullable<double>(6.0))
-            yield assigneeUpdate(null, "w1") }        
+            yield workUpdate(None, Some 6.0)
+            yield assigneeUpdate(None, Some "w1") }        
 
     [<Fact>]
     let ``w1: planned should be 0`` () = 

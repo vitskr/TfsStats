@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{549164
 		paket.dependencies = paket.dependencies
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "fsharpVSO", "src\fsharpVSO.fsproj", "{F3C06EBD-F637-4A76-82B6-EA80D0F2D14C}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TfsStats", "src\TfsStats.fsproj", "{F3C06EBD-F637-4A76-82B6-EA80D0F2D14C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

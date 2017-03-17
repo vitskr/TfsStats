@@ -2,10 +2,23 @@ source https://api.nuget.org/v3/index.json
 
 framework: net452
 
-nuget FSharp.Core
-
+nuget FSharp.Core redirects:force
 nuget FAKE
-nuget Unquote
-nuget xunit
-nuget xunit.runner.console
-nuget xunit.runner.visualstudio version_in_path: true
+nuget Argu
+
+group VSOClient
+	source https://api.nuget.org/v3/index.json
+
+	nuget System.Net.Http
+	nuget System.Net.Http.Formatting redirects:force
+	nuget Microsoft.TeamFoundationServer.Client
+	nuget Microsoft.VisualStudio.Services.Client
+	nuget Microsoft.VisualStudio.Services.InteractiveClient	
+
+group Test
+	source https://api.nuget.org/v3/index.json
+
+	nuget Unquote
+	nuget xunit
+	nuget xunit.runner.console
+	nuget xunit.runner.visualstudio version_in_path: true

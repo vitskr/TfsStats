@@ -1,8 +1,7 @@
-namespace fsharpVSO
+module TfsStats.Updates
 
-open Common
+open TfsStats.Common
 open System
-
 
 type UpdateTypes = 
     | FromNull
@@ -24,21 +23,28 @@ type UpdateBase<'a>(oldValue: 'a option, newValue: 'a option) =
         sprintf "Change from %A to %A" this.OldValue this.NewValue
 
 
-type WorkUpdate(oldValue: Nullable<double>, newValue: Nullable<double>) =
-    inherit UpdateBase<double>(Option.fromNullable(oldValue), Option.fromNullable(newValue))
+type WorkUpdate(oldValue: double option, newValue: double option) =
+    inherit UpdateBase<double>(oldValue, newValue)
 
     member this.HasRaised = this.NewValue > this.OldValue
     member this.HasLowered = this.OldValue > this.NewValue
 
+type AssigneeUpdate(oldValue: string option, newValue: string option)
+    = inherit UpdateBase<string>(oldValue, newValue)
 
-type AssigneeUpdate(oldValue: string, newValue: string)
-    = inherit UpdateBase<string>(Option.fromString(oldValue), Option.fromString(newValue))
-
-type IterationUpdate(oldValue: string, newValue: string)
-    = inherit UpdateBase<string>(Option.fromString(oldValue), Option.fromString(newValue))
-
+type IterationUpdate(oldValue: string option, newValue: string option)
+    = inherit UpdateBase<string>(oldValue, newValue)
 
 type Update = 
     | Work of WorkUpdate
     | Assignee of AssigneeUpdate
     | Iteration of IterationUpdate
+
+let workUpdate (oldValue, newValue) = 
+    Work(WorkUpdate(oldValue, newValue))
+
+let assigneeUpdate (oldValue, newValue) = 
+    Assignee(AssigneeUpdate(oldValue, newValue))
+
+let iterationUpdate (oldValue, newValue) =
+    Iteration(IterationUpdate(oldValue, newValue))
