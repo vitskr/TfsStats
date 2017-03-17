@@ -1,11 +1,10 @@
 ﻿module TfsStats.Program
 
 open TfsStats.VsoClient
-open Microsoft.TeamFoundation.WorkItemTracking.WebApi
 
 [<EntryPoint>]
 let main argv =          
-    use client = new WorkItemTrackingHttpClient(uri, credentials)
+    use client = getClient ()
 
     let tasks = getSprintTasks client
     for task in tasks do

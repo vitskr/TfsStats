@@ -10,11 +10,16 @@ module Fields =
 open Microsoft.TeamFoundation.WorkItemTracking.WebApi
 open Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models
 open Microsoft.VisualStudio.Services.Common
+open Microsoft.VisualStudio.Services.WebApi;
+open Microsoft.VisualStudio.Services.Client;
 open TfsStats.Updates
 open System
 
-let credentials = VssBasicCredential("", "d4oywd5cywbs4c7opuxilirnja5gnojqxgihbcp7euampgezpyqq") |> VssCredentials
-let uri = Uri("https://syncplatform.visualstudio.com/DefaultCollection/")
+let getClient () = 
+    let uri = Uri("https://syncplatform.visualstudio.com/DefaultCollection/");
+    let connection = new VssConnection(uri, new VssClientCredentials());
+
+    connection.GetClient<WorkItemTrackingHttpClient>()
 
 type Task = { Id : int; ChangedDate : DateTime option }
 
