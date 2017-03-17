@@ -150,3 +150,77 @@ type ``Given no iteration, w 0 => 6, assignee changes null => 'w1'  '`` () =
         let info = TaskTracker.track updates
         let actual = info.GetWork(assignee="w1")
         test <@ actual.IsNone @>
+
+ module AdjustTests =
+    
+    [<Fact>]
+    let ``Given CurrentAssignee 'a1' and CurrentIteration 'i1' AdjustWork should adjust by that ammoutn`` () = 
+        let info = new TaskTracker.State ()
+        info.CurrentAssignee <- "a1";
+        info.CurrentIteration <- "i1";
+
+        info.AdjustWork (ammount = { Planned = +6.0; Worked = 0.0 })
+
+        let actual = info.GetWork (iteration = "i1", assignee = "a1")
+        let expected = Some { Planned = 6.0; Worked = 0.0 }
+
+        test <@ expected = actual @>
+
+    [<InlineData(null, null)>]
+    [<InlineData(null, "")>]
+    [<InlineData("", null)>]
+    [<InlineData("iteration1", null)>]
+    [<InlineData("iteration1", "")>]
+    [<InlineData("", "assignee1")>]
+    [<InlineData(null, "assignee1")>]
+    [<Theory>]
+    let ``Given CurrentAssignee and CurrentIteration, AdjustWork should not change work`` (iteration, assignee) = 
+        let info = new TaskTracker.State ()
+        info.CurrentAssignee <- assignee
+        info.CurrentIteration <- iteration
+
+        info.AdjustWork (ammount = { Planned = +6.0; Worked = 0.0 })
+
+        let stats = Seq.toArray <| info.GetStats ()        
+        test <@ Array.isEmpty stats @>
+
+    [<InlineData(5.0, 0.0, 5.0, 0.0)>]
+    [<InlineData(0.0, 5.0, 0.0, 5.0)>]
+    [<Theory>]
+    let ``Given CurrentAssignee and CurrentIteration, AdjustWork should adjust work`` 
+        (adjustPlanned, adjustWorked, expectedPlanned, expectedWorked) =
+        let info = new TaskTracker.State ()
+
+        info.CurrentAssignee <- "a"
+        info.CurrentIteration <- "i"
+        
+        info.AdjustWork (ammount = { Planned = adjustPlanned; Worked = adjustWorked })
+
+        let stats = info.GetWork (iteration = "i", assignee = "a")
+        let expected = Some { Planned = expectedPlanned; Worked = expectedWorked }
+
+        test <@ stats = expected @>
+
+    [<InlineData(+2.0, 0.0, 8.0, 2.0)>]
+    [<InlineData(+0.0, 5.0, 6.0, 7.0)>]
+    [<InlineData(-2.0, 0.0, 4.0, 2.0)>]
+    [<InlineData(-2.0, 2.0, 4.0, 4.0)>]
+    [<Theory>]
+    let ``Given CurrentAssignee and CurrentIteration and Planned = 6.0 and Worked = 2.0, AdjustWork should adjust work`` 
+        (adjustPlanned, adjustWorked, expectedPlanned, expectedWorked) =
+        let info = new TaskTracker.State ()
+
+        info.CurrentAssignee <- "a"
+        info.CurrentIteration <- "i"
+        
+        // Initial state
+        info.AdjustWork (iteration = "i", assignee = "a", ammount = { Planned = 6.0; Worked = 2.0 })
+
+        // Now Adjust for test
+        info.AdjustWork (iteration = "i", assignee = "a", ammount = { Planned = adjustPlanned; Worked = adjustWorked })
+
+        let stats = info.GetWork (iteration = "i", assignee = "a")
+        let expected = Some { Planned = expectedPlanned; Worked = expectedWorked }
+
+        test <@ stats = expected @>
+

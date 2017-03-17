@@ -19,8 +19,13 @@ module TaskTracker =
         
         member this.GetWork (iteration, assignee) = 
             map.GetValue((iteration, assignee))
+
+        member this.GetStats () =
+            map
+            |> Seq.map (fun (KeyValue(k, v)) -> (fst k, snd k, v))
     
     type State() = 
+
         let mutable currentWork: double = 0.0
         let mutable currentAssignee: string = ""
         let mutable currentIteration: string = ""
@@ -50,12 +55,15 @@ module TaskTracker =
             let assignee = defaultArg assignee this.CurrentAssignee
             
             this.Assignees.GetWork(iteration, assignee)
+
+        member this.GetStats () = 
+            assignees.GetStats ()
             
         member private this.SetWork(ammount, ?iteration, ?assignee) =
             let iteration = defaultArg iteration this.CurrentIteration
             let assignee = defaultArg assignee this.CurrentAssignee
 
-            this.Assignees.SetWork(iteration, assignee, ammount)
+            this.Assignees.SetWork(iteration, assignee, ammount)   
        
     let single (state: State) (update: Update) = 
 
