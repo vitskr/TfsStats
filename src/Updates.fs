@@ -1,6 +1,5 @@
-module TfsStats.Updates
+module Updates
 
-open TfsStats.Common
 open System
 
 type UpdateTypes = 
@@ -40,11 +39,11 @@ type Update =
     | Assignee of AssigneeUpdate
     | Iteration of IterationUpdate
 
-let workUpdate (oldValue, newValue) = 
+let workUpdate (oldValue, newValue) : Update = 
     Work(WorkUpdate(oldValue, newValue))
 
-let assigneeUpdate (oldValue, newValue) = 
+let assigneeUpdate (oldValue, newValue) : Update = 
     Assignee(AssigneeUpdate(oldValue, newValue))
 
-let iterationUpdate (oldValue, newValue) =
+let iterationUpdate (oldValue, newValue) : Update =
     Iteration(IterationUpdate(oldValue, newValue))

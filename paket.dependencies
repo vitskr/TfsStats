@@ -1,22 +1,28 @@
-source https://api.nuget.org/v3/index.json
+source https://nuget.org/api/v2
+strategy: max
 
 framework: net452
 
-nuget FSharp.Core redirects:force
-nuget FAKE
 nuget Argu
 
-group VSOClient
-	source https://api.nuget.org/v3/index.json
+nuget FSharp.Core redirects:force
+nuget FAKE
+nuget NLog redirects:force
+nuget Newtonsoft.Json redirects:force
 
-	nuget System.Net.Http
-	nuget System.Net.Http.Formatting redirects:force
+github Ravadre/NLog.FSharp NLog.FSharp/Logger.fs
+
+group VSOClient
+	source https://nuget.org/api/v2
+	strategy: max
+
 	nuget Microsoft.TeamFoundationServer.Client
 	nuget Microsoft.VisualStudio.Services.Client
 	nuget Microsoft.VisualStudio.Services.InteractiveClient	
 
 group Test
-	source https://api.nuget.org/v3/index.json
+	source https://nuget.org/api/v2
+	strategy: max
 
 	nuget Unquote
 	nuget xunit

@@ -1,10 +1,11 @@
-module TfsStats.Tests
+module Tests
+
+open Updates
+open TaskTracker
 
 open Xunit
 open Swensen.Unquote
 open System
-open TfsStats.TaskTracker
-open TfsStats.Updates
 
 
 type ``Given WorkUpdate that has old work null`` () =
@@ -12,44 +13,44 @@ type ``Given WorkUpdate that has old work null`` () =
     [<Fact>]
     let ``when new work is 12.0 HasRaised should be true`` () =
         let work = WorkUpdate(None, Some 12.0)
-        test <@ work.HasRaised = true @>
+        test <@ work.HasRaised @>
 
     [<Fact>]
     let ``when new work is 12.0 HasLowered should be false`` () =
         let work = WorkUpdate(None, Some 12.0)
-        test <@ work.HasLowered  = false @>
+        test <@ not work.HasLowered @>
 
     [<Fact>]
     let ``when new work is null HasRaised should be false`` () =
         let work = WorkUpdate(None, None)        
-        test <@ work.HasRaised  = false @>
+        test <@ not work.HasRaised @>
 
     [<Fact>]
     let ``when new work is null HasLowered should be false`` () =
         let work = WorkUpdate(None, None)
-        test <@ work.HasLowered  = false @>
+        test <@ not work.HasLowered @>
 
 type ``Given WorkUpdate that has new work null`` () =
 
     [<Fact>]
     let ``when old work is 12.0 HasRaised should be false`` () =
         let work = WorkUpdate(Some 12.0, None)
-        test <@ work.HasRaised  = false @>
+        test <@ not work.HasRaised @>
 
     [<Fact>]
     let ``when old work is 12.0 HasLowered should be true`` () =
         let work = WorkUpdate(Some 12.0, None)
-        test <@ work.HasLowered  = true @>
+        test <@ work.HasLowered @>
 
     [<Fact>]
     let ``when old work is null HasRaised should be false`` () =
         let work = WorkUpdate(None, None)
-        test <@ work.HasRaised  = false @>
+        test <@ not work.HasRaised @>
 
     [<Fact>]
     let ``when old work is null HasLowered should be false`` () =
         let work = WorkUpdate(None, None)                
-        test <@ work.HasLowered  = false @>
+        test <@ not work.HasLowered @>
 
 type ``Given assignee 'worker1' and work changed from 0 to 6`` () =
     let updates = seq { 
@@ -105,7 +106,7 @@ type ``Given assignee 'worker1' and work changed from 0 to 6`` () =
         let actual2 = info.GetWork(assignee="worker2")
 
         let expected1 = Some { Planned = 2.0; Worked = 2.0}
-        let expected2 = Some {Planned = 4.0; Worked = 0.0}
+        let expected2 = Some { Planned = 4.0; Worked = 0.0}
 
         test <@ actual1 = expected1 @>
         test <@ actual2 = expected2 @>

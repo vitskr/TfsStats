@@ -1,28 +1,32 @@
-module TfsStats.TaskTracker
+module TaskTracker
+
+open Updates
 
 open System
 open System.Collections.Generic
-open TfsStats.Common
-open TfsStats.Updates
 
 
-type AssigneeInfo = { Planned: double; Worked: double; }
+type AssigneeInfo = 
+    { Planned: double;
+      Worked: double; }
 
-type iteration = string
-type assignee = string
+type Iteration = string
+type Assignee = string
 
 type WorkMap () = 
-    let map = new Dictionary<(iteration * assignee), AssigneeInfo>()
+    let map = new Dictionary<(Iteration * Assignee), AssigneeInfo>()
 
     member this.SetWork (iteration, assignee, info) =
         map.[(iteration, assignee)] <- info
     
     member this.GetWork (iteration, assignee) = 
-        map.GetValue((iteration, assignee))
+        match map.TryGetValue((iteration, assignee)) with
+        | true, value -> Some value
+        | _ -> None        
 
-    member this.GetStats () =
+    member this.GetStats () : seq<string * string * AssigneeInfo> =
         map
-        |> Seq.map (fun (KeyValue(k, v)) -> (fst k, snd k, v))
+        |> Seq.map (fun (KeyValue(k, v)) -> fst k, snd k, v)
 
 type State() = 
 
@@ -30,7 +34,7 @@ type State() =
     let mutable currentAssignee: string = ""
     let mutable currentIteration: string = ""
 
-    let assignees = new WorkMap()
+    let assignees = WorkMap()
     
     member this.CurrentWork with get() = currentWork  and set(v) = currentWork <- v    
     member this.CurrentAssignee with get() = currentAssignee and set(v) = currentAssignee <- v
@@ -64,8 +68,8 @@ type State() =
         let assignee = defaultArg assignee this.CurrentAssignee
 
         this.Assignees.SetWork(iteration, assignee, ammount)   
-    
-let single (state: State) (update: Update) = 
+
+let single (state: State) (update: Updates.Update) = 
 
     let processAssigneeUpdate (u: AssigneeUpdate) = 
         state.CurrentAssignee <- match u.NewValue with
@@ -105,7 +109,7 @@ let single (state: State) (update: Update) =
         
         state
 
-    let processIterationUpdate (i: IterationUpdate) =       
+    let processIterationUpdate (i: IterationUpdate) = 
         state.CurrentIteration <- match i.NewValue with Some v -> v | None -> null
         
         match i.UpdateType with
@@ -119,15 +123,13 @@ let single (state: State) (update: Update) =
 
         state
 
-
     match update with 
     | Assignee assignee -> processAssigneeUpdate assignee
     | Work work -> processWorkUpdate work
     | Iteration iteration -> processIterationUpdate iteration
-    | _ -> failwith "Unsupported Update Type [%A]" <| update
-    
+
 
 let track (updates : seq<Update>) = 
-    let trackInfo = new State()
+    let trackInfo = State()
     updates
     |> Seq.fold (single) trackInfo

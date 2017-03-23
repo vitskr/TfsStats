@@ -1,5 +1,9 @@
 FSharp.Core
 Argu
+NLog
+Newtonsoft.Json
+
+File: Logger.fs .
 
 group VSOClient
 	Microsoft.TeamFoundationServer.Client
@@ -14,6 +18,8 @@ group VSOClient
 
 	Microsoft.VisualStudio.Services.Client
 	Microsoft.VisualStudio.Services.InteractiveClient
+		exclude Microsoft.IdentityModel.Clients.ActiveDirectory
+		exclude Microsoft.IdentityModel.Clients.ActiveDirectory.Platform
 
 group Test
 	Unquote

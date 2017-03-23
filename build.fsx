@@ -28,7 +28,9 @@ Target "Build" (fun _ ->
 )
 
 Target "Deploy" (fun _ ->
-    !! (buildDir + "/**/*.*")
+    !! (buildDir + "/**/*.exe")
+    ++ (buildDir + "/**/*.exe.config")
+    ++ (buildDir + "/**/*.dll")
     -- "*.zip"
     |> Zip buildDir (deployDir + "ApplicationName." + version + ".zip")
 )
