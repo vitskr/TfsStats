@@ -2,10 +2,13 @@
 #r "./packages/FAKE/tools/FakeLib.dll"
 
 open Fake
+open Fake.Testing
 
 // Directories
 let buildDir  = "./build/"
 let deployDir = "./deploy/"
+
+let testDir = "./tests/"
 
 
 // Filesets
@@ -35,10 +38,18 @@ Target "Deploy" (fun _ ->
     |> Zip buildDir (deployDir + "ApplicationName." + version + ".zip")
 )
 
+Target "Test" (fun _ ->
+    !!(buildDir @@ "*.Tests.dll")
+        |> xUnit2 (fun p ->
+            { p with HtmlOutputPath = Some (testDir @@ "results.html") })
+)
+
+
 // Build order
 "Clean"
   ==> "Build"
+  ==> "Test"
   ==> "Deploy"
 
 // start build
-RunTargetOrDefault "Build"
+RunTargetOrDefault "Test"

@@ -20,8 +20,3 @@ group VSOClient
 	Microsoft.VisualStudio.Services.InteractiveClient
 		exclude Microsoft.IdentityModel.Clients.ActiveDirectory
 		exclude Microsoft.IdentityModel.Clients.ActiveDirectory.Platform
-
-group Test
-	Unquote
-	xunit
-	xunit.runner.visualstudio

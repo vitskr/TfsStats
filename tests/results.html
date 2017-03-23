@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html>
+  <head>
+    <title>xUnit.net Test Results</title>
+    <style type="text/css">
+          body { font-family: Calibri, Verdana, Arial, sans-serif; background-color: White; color: Black; }
+          h2,h3,h4,h5 { margin: 0; padding: 0; }
+          h3 { font-weight: normal; }
+          h4 { margin: 0.5em 0; }
+          h5 { font-weight: normal; font-style: italic; margin-bottom: 0.75em; }
+          h6 { font-size: 0.9em; font-weight: bold; margin: 0.5em 0 0 0.75em; padding: 0; }
+          pre,table { font-family: Consolas; font-size: 0.8em; margin: 0 0 0 1em; padding: 0; }
+          table { padding-bottom: 0.25em; }
+          th { padding: 0 0.5em; border-right: 1px solid #bbb; text-align: left; }
+          td { padding-left: 0.5em; }
+          .divided { border-top: solid 1px #f0f5fa; padding-top: 0.5em; }
+          .row, .altrow { padding: 0.1em 0.3em; }
+          .row { background-color: #f0f5fa; }
+          .altrow { background-color: #e1ebf4; }
+          .success, .failure, .skipped { font-family: Arial Unicode MS; font-weight: normal; float: left; width: 1em; display: block; }
+          .success { color: #0c0; }
+          .failure { color: #c00; }
+          .skipped { color: #cc0; }
+          .timing { float: right; }
+          .indent { margin: 0.25em 0 0.5em 2em; }
+          .clickable { cursor: pointer; }
+          .testcount { font-size: 85%; }
+        </style>
+    <script language="javascript">
+          function ToggleClass(id) {
+            var elem = document.getElementById(id);
+            if (elem.style.display == "none") {
+              elem.style.display = "block";
+            }
+            else {
+              elem.style.display = "none";
+            }
+          }
+        </script>
+  </head>
+  <body>
+    <h3 class="divided">
+      <b>Assemblies Run</b>
+    </h3>
+    <div>d:\workspace\fsharp\fsharpVSO\build\TfsStats.Tests.DLL</div>
+    <h3 class="divided">
+      <b>Summary</b>
+    </h3>
+    <div>
+          Tests run: <a href="#all"><b>29</b></a> —
+          
+          Run time: <b>0.455s</b>,
+          Finished: <b>03/23/2017 16:55:39</b></div>
+    <br />
+    <h2>
+      <a id="all" />All tests
+        </h2>
+    <h5>Click test class name to expand/collapse test details</h5>
+    <h3>
+      <span class="timing">0.226s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0EZ')" ondblclick="ToggleClass('classID0EZ')">
+        <span class="success">✔</span>
+               TfsStats.Tests+AdjustTests
+               <span class="testcount">
+                (14 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0EZ">
+      <div class="row">
+        <span class="timing">0.0458465s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee 'a1' and CurrentIteration 'i1' AdjustWork should adjust by that ammoutn<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0000489s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration and Planned = 6.0 and Worked = 2.0, AdjustWork should adjust work(adjustPlanned: 0, adjustWorked: 5, expectedPlanned: 6, expectedWorked: 7)<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0000531s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration and Planned = 6.0 and Worked = 2.0, AdjustWork should adjust work(adjustPlanned: -2, adjustWorked: 0, expectedPlanned: 4, expectedWorked: 2)<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0011307s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration and Planned = 6.0 and Worked = 2.0, AdjustWork should adjust work(adjustPlanned: 2, adjustWorked: 0, expectedPlanned: 8, expectedWorked: 2)<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0000615s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration and Planned = 6.0 and Worked = 2.0, AdjustWork should adjust work(adjustPlanned: -2, adjustWorked: 2, expectedPlanned: 4, expectedWorked: 4)<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0000473s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should adjust work(adjustPlanned: 0, adjustWorked: 5, expectedPlanned: 0, expectedWorked: 5)<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0010184s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should adjust work(adjustPlanned: 5, adjustWorked: 0, expectedPlanned: 5, expectedWorked: 0)<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0000501s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should not change work(iteration: \"\", assignee: \"assignee1\")<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0000473s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should not change work(iteration: \"\", assignee: null)<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0000573s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should not change work(iteration: \"iteration1\", assignee: \"\")<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0000428s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should not change work(iteration: \"iteration1\", assignee: null)<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0001922s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should not change work(iteration: null, assignee: \"\")<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0000422s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should not change work(iteration: null, assignee: \"assignee1\")<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.1776074s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+AdjustTests.Given CurrentAssignee and CurrentIteration, AdjustWork should not change work(iteration: null, assignee: null)<br clear="all" /></div>
+    </div>
+    <h3>
+      <span class="timing">0.056s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0ETE')" ondblclick="ToggleClass('classID0ETE')">
+        <span class="success">✔</span>
+               TfsStats.Tests+Given assignee 'worker1' and work changed from 0 to 6
+               <span class="testcount">
+                (6 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0ETE">
+      <div class="row">
+        <span class="timing">0.0117963s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given assignee 'worker1' and work changed from 0 to 6.and then assignee changed to 'worker2' Tracker should return worker1: {p:0, w:0}, worke2: { p:6, w:0 }<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0026074s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given assignee 'worker1' and work changed from 0 to 6.and then w 6 =&gt; 4 and then a worker1 =&gt; worker2  and then w 4 =&gt; 0. w2: { p:4.0 w:4.0 }<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0026768s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given assignee 'worker1' and work changed from 0 to 6.and then work changes from 6 to 4 and then assignee changes to worker2. worker1: {p:2; w:2}. worker2: {p:4;w:0}<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.022276s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given assignee 'worker1' and work changed from 0 to 6.and then work changes from 6 to 4 tracker should return worker1: {p: 6, w: 2}<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0147787s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given assignee 'worker1' and work changed from 0 to 6.CurrentWork should be 6<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0015282s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given assignee 'worker1' and work changed from 0 to 6.Tracker should return worker1: { p:6, w:0 }<br clear="all" /></div>
+    </div>
+    <h3>
+      <span class="timing">0.007s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0E4G')" ondblclick="ToggleClass('classID0E4G')">
+        <span class="success">✔</span>
+               TfsStats.Tests+Given no iteration\, w 0 =&gt; 6\, assignee changes null =&gt; 'w1'  '
+               <span class="testcount">
+                (1 test)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0E4G">
+      <div class="row">
+        <span class="timing">0.0070713s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given no iteration\\, w 0 =&gt; 6\\, assignee changes null =&gt; 'w1'  '.w1: planned should be 0<br clear="all" /></div>
+    </div>
+    <h3>
+      <span class="timing">0.026s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0EUD')" ondblclick="ToggleClass('classID0EUD')">
+        <span class="success">✔</span>
+               TfsStats.Tests+Given WorkUpdate that has new work null
+               <span class="testcount">
+                (4 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0EUD">
+      <div class="row">
+        <span class="timing">0.0008943s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given WorkUpdate that has new work null.when old work is 12.0 HasLowered should be true<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0007235s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given WorkUpdate that has new work null.when old work is 12.0 HasRaised should be false<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0232075s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given WorkUpdate that has new work null.when old work is null HasLowered should be false<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.000898s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given WorkUpdate that has new work null.when old work is null HasRaised should be false<br clear="all" /></div>
+    </div>
+    <h3>
+      <span class="timing">0.003s
+            </span>
+      <span class="clickable" onclick="ToggleClass('classID0E5F')" ondblclick="ToggleClass('classID0E5F')">
+        <span class="success">✔</span>
+               TfsStats.Tests+Given WorkUpdate that has old work null
+               <span class="testcount">
+                (4 tests)
+              </span></span>
+      <br clear="all" />
+    </h3>
+    <div class="indent" style="display: none;" id="classID0E5F">
+      <div class="row">
+        <span class="timing">0.0009484s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given WorkUpdate that has old work null.when new work is 12.0 HasLowered should be false<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0007249s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given WorkUpdate that has old work null.when new work is 12.0 HasRaised should be true<br clear="all" /></div>
+      <div class="row">
+        <span class="timing">0.0007138s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given WorkUpdate that has old work null.when new work is null HasLowered should be false<br clear="all" /></div>
+      <div class="altrow">
+        <span class="timing">0.0007135s
+        </span>
+        <span class="success">✔</span>
+       TfsStats.Tests+Given WorkUpdate that has old work null.when new work is null HasRaised should be false<br clear="all" /></div>
+    </div>
+  </body>
+</html>

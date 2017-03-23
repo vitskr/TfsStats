@@ -7,6 +7,7 @@ nuget Argu
 
 nuget FSharp.Core redirects:force
 nuget FAKE
+
 nuget NLog redirects:force
 nuget Newtonsoft.Json redirects:force
 

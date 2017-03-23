@@ -1,4 +1,4 @@
-module Tests
+module TfsStats.Tests
 
 open Updates
 open TaskTracker
