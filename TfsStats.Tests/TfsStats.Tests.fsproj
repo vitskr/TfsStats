@@ -35,7 +35,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\TfsStats.fsproj">
+    <ProjectReference Include="..\src\TfsStats\TfsStats.fsproj">
       <Name>TfsStats.fsproj</Name>
       <Project>{f3c06ebd-f637-4a76-82b6-ea80d0f2d14c}</Project>
     </ProjectReference>
